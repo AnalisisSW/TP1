@@ -7,6 +7,7 @@ package programa;
 
 import entidades.Triangulo;
 import java.awt.Color;
+import javax.swing.JOptionPane;
 
 /**
  *
@@ -141,20 +142,26 @@ public class TipoTriangulo extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void jButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonActionPerformed
-        int lado1 = Integer.parseInt(jTextFieldPrimerLado.getText());
-        int lado2 = Integer.parseInt(jTextFieldSegundoLado.getText());
-        int lado3 = Integer.parseInt(jTextFieldTercerLado.getText());
-        if(lado1 > 0 && lado2 > 0 && lado3 > 0){
-            Triangulo nuevo = new Triangulo(lado1, lado2, lado3);
-            if(nuevo.esTriangulo(lado1, lado2, lado3)){
-                jLabelRespuesta.setText("Es un triángulo " + nuevo.tipoTriangulo(lado1, lado2, lado3));
-                jLabelRespuesta.setForeground(Color.blue);
+        if(!jTextFieldPrimerLado.getText().isEmpty() && !jTextFieldSegundoLado.getText().isEmpty()
+                && !jTextFieldTercerLado.getText().isEmpty()) {
+            int lado1 = Integer.parseInt(jTextFieldPrimerLado.getText());
+            int lado2 = Integer.parseInt(jTextFieldSegundoLado.getText());
+            int lado3 = Integer.parseInt(jTextFieldTercerLado.getText());
+            if(lado1 > 0 && lado2 > 0 && lado3 > 0){
+                Triangulo nuevo = new Triangulo(lado1, lado2, lado3);
+                if(nuevo.esTriangulo(lado1, lado2, lado3)){
+                    jLabelRespuesta.setText("Es un triángulo " + nuevo.tipoTriangulo(lado1, lado2, lado3));
+                    jLabelRespuesta.setForeground(Color.blue);
+                }else{
+                    jLabelRespuesta.setText("No se cumple la condición de existencia.");
+                    jLabelRespuesta.setForeground(Color.red);
+                }
             }else{
-                jLabelRespuesta.setText("No se cumple la condición de existencia.");
+                jLabelRespuesta.setText("Todos los lados deben ser mayores a 0.");
                 jLabelRespuesta.setForeground(Color.red);
             }
         }else{
-            jLabelRespuesta.setText("Todos los lados deben ser mayores a 0.");
+            jLabelRespuesta.setText("Ningún campo puede quedar vació.");
             jLabelRespuesta.setForeground(Color.red);
         }
             
