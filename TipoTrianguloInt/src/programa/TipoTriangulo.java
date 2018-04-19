@@ -7,7 +7,6 @@ package programa;
 
 import entidades.Triangulo;
 import java.awt.Color;
-import javax.swing.JOptionPane;
 
 /**
  *
@@ -60,6 +59,12 @@ public class TipoTriangulo extends javax.swing.JFrame {
         jLabelTercerLado.setFont(new java.awt.Font("Times New Roman", 0, 14)); // NOI18N
         jLabelTercerLado.setText("Ingrese tercer lado:");
 
+        jTextFieldPrimerLado.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                jTextFieldPrimerLadoKeyPressed(evt);
+            }
+        });
+
         jLabel1.setText("cm.");
 
         jLabel5.setText("cm.");
@@ -72,6 +77,18 @@ public class TipoTriangulo extends javax.swing.JFrame {
         jButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButtonActionPerformed(evt);
+            }
+        });
+
+        jTextFieldTercerLado.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                jTextFieldTercerLadoKeyPressed(evt);
+            }
+        });
+
+        jTextFieldSegundoLado.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                jTextFieldSegundoLadoKeyPressed(evt);
             }
         });
 
@@ -101,13 +118,13 @@ public class TipoTriangulo extends javax.swing.JFrame {
                             .addComponent(jLabel1)
                             .addComponent(jLabel5)
                             .addComponent(jLabel6))
-                        .addContainerGap(167, Short.MAX_VALUE))
+                        .addContainerGap(174, Short.MAX_VALUE))
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(jButton)
                         .addGap(18, 18, 18)
                         .addComponent(jLabelRespuesta, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
             .addGroup(layout.createSequentialGroup()
-                .addGap(106, 106, 106)
+                .addGap(114, 114, 114)
                 .addComponent(jLabelTitulo)
                 .addGap(0, 0, Short.MAX_VALUE))
         );
@@ -142,30 +159,49 @@ public class TipoTriangulo extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void jButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonActionPerformed
-        if(!jTextFieldPrimerLado.getText().isEmpty() && !jTextFieldSegundoLado.getText().isEmpty()
-                && !jTextFieldTercerLado.getText().isEmpty()) {
-            int lado1 = Integer.parseInt(jTextFieldPrimerLado.getText());
-            int lado2 = Integer.parseInt(jTextFieldSegundoLado.getText());
-            int lado3 = Integer.parseInt(jTextFieldTercerLado.getText());
-            if(lado1 > 0 && lado2 > 0 && lado3 > 0){
-                Triangulo nuevo = new Triangulo(lado1, lado2, lado3);
-                if(nuevo.esTriangulo(lado1, lado2, lado3)){
-                    jLabelRespuesta.setText("Es un triángulo " + nuevo.tipoTriangulo(lado1, lado2, lado3));
-                    jLabelRespuesta.setForeground(Color.blue);
+        String l1 = jTextFieldPrimerLado.getText();
+        String l2 = jTextFieldSegundoLado.getText();
+        String l3 = jTextFieldTercerLado.getText();
+        if(!l1.isEmpty() && !l2.isEmpty() && !l3.isEmpty()) {
+            if(isNumeric(l1) && isNumeric(l2) && isNumeric(l3)){
+                int lado1 = Integer.parseInt(l1);
+                int lado2 = Integer.parseInt(l2);
+                int lado3 = Integer.parseInt(l3);
+                if(lado1 > 0 && lado2 > 0 && lado3 > 0){
+                    Triangulo nuevo = new Triangulo(lado1, lado2, lado3);
+                    if(nuevo.esTriangulo(lado1, lado2, lado3)){
+                        jLabelRespuesta.setText("Es un triángulo " + nuevo.tipoTriangulo(lado1, lado2, lado3));
+                        jLabelRespuesta.setForeground(Color.blue);
+                    }else{
+                        jLabelRespuesta.setText("No se cumple la condición de existencia.");
+                        jLabelRespuesta.setForeground(Color.red);
+                    }
                 }else{
-                    jLabelRespuesta.setText("No se cumple la condición de existencia.");
+                    jLabelRespuesta.setText("Todos los lados deben ser mayores a 0.");
                     jLabelRespuesta.setForeground(Color.red);
                 }
             }else{
-                jLabelRespuesta.setText("Todos los lados deben ser mayores a 0.");
-                jLabelRespuesta.setForeground(Color.red);
+                  jLabelRespuesta.setText("Solo se pueden ingresar números enteros.");
+                  jLabelRespuesta.setForeground(Color.red);
             }
         }else{
-            jLabelRespuesta.setText("Ningún campo puede quedar vació.");
+            jLabelRespuesta.setText("Ningún campo puede quedar vacío.");
             jLabelRespuesta.setForeground(Color.red);
         }
             
     }//GEN-LAST:event_jButtonActionPerformed
+
+    private void jTextFieldPrimerLadoKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTextFieldPrimerLadoKeyPressed
+        jLabelRespuesta.setText("");
+    }//GEN-LAST:event_jTextFieldPrimerLadoKeyPressed
+
+    private void jTextFieldSegundoLadoKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTextFieldSegundoLadoKeyPressed
+        jLabelRespuesta.setText("");
+    }//GEN-LAST:event_jTextFieldSegundoLadoKeyPressed
+
+    private void jTextFieldTercerLadoKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTextFieldTercerLadoKeyPressed
+        jLabelRespuesta.setText("");
+    }//GEN-LAST:event_jTextFieldTercerLadoKeyPressed
 
     /**
      * @param args the command line arguments
@@ -183,20 +219,18 @@ public class TipoTriangulo extends javax.swing.JFrame {
                     break;
                 }
             }
-        } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(TipoTriangulo.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(TipoTriangulo.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(TipoTriangulo.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (javax.swing.UnsupportedLookAndFeelException ex) {
+        } catch (ClassNotFoundException | InstantiationException | IllegalAccessException | javax.swing.UnsupportedLookAndFeelException ex) {
             java.util.logging.Logger.getLogger(TipoTriangulo.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
+        //</editor-fold>
+        //</editor-fold>
+        
         //</editor-fold>
         //</editor-fold>
 
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
+            @Override
             public void run() {
                 new TipoTriangulo().setVisible(true);
             }
@@ -217,4 +251,13 @@ public class TipoTriangulo extends javax.swing.JFrame {
     private javax.swing.JTextField jTextFieldSegundoLado;
     private javax.swing.JTextField jTextFieldTercerLado;
     // End of variables declaration//GEN-END:variables
+
+    private static boolean isNumeric(String lado) {
+        try {
+            Integer.parseInt(lado);
+            return true;
+        } catch (NumberFormatException e) {
+            return false;
+        }
+    }
 }
