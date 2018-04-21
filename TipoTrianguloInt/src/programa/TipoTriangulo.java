@@ -158,25 +158,17 @@ public class TipoTriangulo extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    /**
-     * Boton armar triangulo
-     * @param evt 
-     */
     private void jButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonActionPerformed
         String l1 = jTextFieldPrimerLado.getText();
         String l2 = jTextFieldSegundoLado.getText();
         String l3 = jTextFieldTercerLado.getText();
-        //Pregunta si estan vacios los campos
         if(!l1.isEmpty() && !l2.isEmpty() && !l3.isEmpty()) {
-            //Pregunta si los campos son numeros enteros
             if(isNumeric(l1) && isNumeric(l2) && isNumeric(l3)){
                 int lado1 = Integer.parseInt(l1);
                 int lado2 = Integer.parseInt(l2);
                 int lado3 = Integer.parseInt(l3);
-                //Pregunta si los 3 lados son positivos
                 if(lado1 > 0 && lado2 > 0 && lado3 > 0){
                     Triangulo nuevo = new Triangulo(lado1, lado2, lado3);
-                    //Determina si el triangulo cumple la condicion de existencia
                     if(nuevo.esTriangulo(lado1, lado2, lado3)){
                         jLabelRespuesta.setText("Es un triángulo " + nuevo.tipoTriangulo(lado1, lado2, lado3));
                         jLabelRespuesta.setForeground(Color.blue);
@@ -199,25 +191,14 @@ public class TipoTriangulo extends javax.swing.JFrame {
             
     }//GEN-LAST:event_jButtonActionPerformed
 
-    /**
-     * Evento para borrar la respuesta
-     * @param evt 
-     */
     private void jTextFieldPrimerLadoKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTextFieldPrimerLadoKeyPressed
         jLabelRespuesta.setText("");
     }//GEN-LAST:event_jTextFieldPrimerLadoKeyPressed
-    /**
-     * Evento para borrar la respuesta
-     * @param evt 
-     */
+
     private void jTextFieldSegundoLadoKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTextFieldSegundoLadoKeyPressed
         jLabelRespuesta.setText("");
     }//GEN-LAST:event_jTextFieldSegundoLadoKeyPressed
 
-    /**
-     * Evento para borrar la respuesta
-     * @param evt 
-     */
     private void jTextFieldTercerLadoKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTextFieldTercerLadoKeyPressed
         jLabelRespuesta.setText("");
     }//GEN-LAST:event_jTextFieldTercerLadoKeyPressed
@@ -271,11 +252,6 @@ public class TipoTriangulo extends javax.swing.JFrame {
     private javax.swing.JTextField jTextFieldTercerLado;
     // End of variables declaration//GEN-END:variables
 
-    /**
-     * Método que determina si un string es un numero entero
-     * @param lado
-     * @return 
-     */
     private static boolean isNumeric(String lado) {
         try {
             Integer.parseInt(lado);
